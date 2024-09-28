@@ -1,0 +1,213 @@
+##
+## Copyright (c) 2023 NVIDIA CORPORATION & AFFILIATES. All rights reserved.
+##
+## NVIDIA CORPORATION, its affiliates and licensors retain all intellectual
+## property and proprietary rights in and to this material, related
+## documentation and any modifications thereto. Any use, reproduction,
+## disclosure or distribution of this material and related documentation
+## without an express license agreement from NVIDIA CORPORATION or
+## its affiliates is strictly prohibited.
+##
+
+robot_cfg:
+  kinematics:
+    # usd_path: "robot/ur_description/ur3_robotiq_2f_85.usd"
+    usd_path: "/home/ppppppp/ReKep/sdf_reconstruction/configs/ur3_robotiq_2f_85.usd"
+    usd_robot_root: "/home/ppppppp/ReKep/sdf_reconstruction/configs"
+    isaac_usd_path: ""
+    usd_flip_joints: {}
+    usd_flip_joint_limits: []
+
+    # urdf_path: "robot/ur_description/ur3_robotiq_2f_85.urdf"
+    # asset_root_path: "robot/ur_description"
+    urdf_path: "/home/ppppppp/ReKep/sdf_reconstruction/configs/ur3_robotiq_2f_85.urdf"
+    # asset_root_path: ""
+
+    base_link: "base_link"
+    ee_link: "grasp_frame"
+    link_names: null
+    lock_joints: {'finger_joint': 0.0}
+
+    extra_links: null #{"attached_object":{"parent_link_name": "grasp_frame" ,
+    #"link_name": "attached_object", "fixed_transform": [0,0,0,1,0,0,0], "joint_type":"FIXED",
+    #"joint_name": "attach_joint" }}
+    extra_collision_spheres: null #{"attached_object": 4}
+
+    collision_link_names: ['shoulder_link','upper_arm_link', 'forearm_link', 'wrist_1_link',
+    'wrist_2_link' ,'wrist_3_link', 'tool0', 'robotiq_arg2f_base_link',
+    'left_outer_finger',
+    'left_inner_finger_pad',
+    'right_outer_finger' ,
+    'right_inner_finger_pad',
+    ] # List[str]
+    collision_spheres:
+      shoulder_link:
+        - "center": [-0.0, 0.0, -0.02]
+          "radius": 0.055
+        - "center": [0.01, -0.019, -0.0]
+          "radius": 0.045
+        - "center": [0.004, -0.007, 0.019]
+          "radius": 0.05
+      upper_arm_link:
+        - "center": [0.003, 0.002, 0.104]
+          "radius": 0.052
+        - "center": [-0.232, 0.002, 0.112]
+          "radius": 0.043
+        - "center": [-0.121, -0.001, 0.12]
+          "radius": 0.042
+        - "center": [-0.163, 0.002, 0.118]
+          "radius": 0.041
+        - "center": [-0.086, 0.001, 0.121]
+          "radius": 0.041
+        - "center": [-0.02, 0.014, 0.121]
+          "radius": 0.041
+        - "center": [-0.026, -0.019, 0.126]
+          "radius": 0.035
+        - "center": [-0.238, 0.0, 0.146]
+          "radius": 0.04
+      forearm_link:
+        - "center": [-0.013, 0.001, 0.04]
+          "radius": 0.042
+        - "center": [-0.214, -0.002, 0.035]
+          "radius": 0.039
+        - "center": [-0.171, -0.0, 0.027]
+          "radius": 0.036
+        - "center": [-0.083, 0.0, 0.029]
+          "radius": 0.036
+        - "center": [0.009, -0.006, 0.054]
+          "radius": 0.034
+        - "center": [-0.204, 0.006, 0.003]
+          "radius": 0.036
+        - "center": [-0.103, 0.002, 0.028]
+          "radius": 0.035
+        - "center": [0.006, 0.01, 0.054]
+          "radius": 0.034
+        - "center": [-0.213, 0.005, 0.043]
+          "radius": 0.037
+        - "center": [-0.022, -0.002, 0.025]
+          "radius": 0.033
+        - "center": [-0.137, 0.001, 0.027]
+          "radius": 0.036
+        - "center": [-0.05, 0.0, 0.034]
+          "radius": 0.039
+      wrist_1_link:
+        - "center": [0.0, -0.009, -0.002]
+          "radius": 0.041
+        - "center": [-0.003, 0.019, 0.001]
+          "radius": 0.037
+        - "center": [0.006, 0.007, -0.024]
+          "radius": 0.033
+      wrist_2_link:
+        - "center": [-0.0, 0.0, -0.015]
+          "radius": 0.041
+        - "center": [-0.0, 0.012, 0.001]
+          "radius": 0.039
+        - "center": [-0.0, -0.018, -0.001]
+          "radius": 0.04
+      wrist_3_link:
+        - "center": [0.0, 0.002, -0.025]
+          "radius": 0.035
+      tool0:
+        - "center": [0.001, 0.001, 0.05]
+          "radius": 0.01 #0.05
+      robotiq_arg2f_base_link:
+        - "center": [0.0, -0.0, 0.04]
+          "radius": 0.04
+      left_outer_finger:
+        - "center": [0.0, -0.01, 0.02]
+          "radius": 0.03
+      left_inner_finger_pad:
+        - "center": [0.0, -0.0, 0.0]
+          "radius": 0.01
+      right_outer_finger:
+        - "center": [0.0, -0.01, 0.02]
+          "radius": 0.03
+      right_inner_finger_pad:
+        - "center": [0.0, -0.0, 0.0]
+          "radius": 0.01
+
+    collision_sphere_buffer: 0.005
+
+    self_collision_ignore: {
+      "upper_arm_link": ["forearm_link", "shoulder_link"],
+      "forearm_link": ["wrist_1_link", "wrist_2_link", "wrist_3_link"],
+      "wrist_1_link": ["wrist_2_link","wrist_3_link","tool0", "robotiq_arg2f_base_link"],
+      "wrist_2_link": ["wrist_3_link", "tool0",  "robotiq_arg2f_base_link"],
+      "wrist_3_link": ["tool0", "robotiq_arg2f_base_link"],
+
+      "tool0": ['robotiq_arg2f_base_link', 'left_outer_finger', 'left_inner_finger_pad',
+      'left_inner_knuckle', 'left_inner_finger', 'left_outer_knuckle',
+      'right_outer_finger', 'right_inner_finger_pad',
+      'right_inner_knuckle', 'right_inner_finger', 'right_outer_knuckle'],
+
+      "robotiq_arg2f_base_link": ['left_outer_finger', 'left_inner_finger_pad',
+      'left_inner_knuckle', 'left_inner_finger', 'left_outer_knuckle',
+      'right_outer_finger', 'right_inner_finger_pad',
+      'right_inner_knuckle', 'right_inner_finger', 'right_outer_knuckle'],
+
+      "left_outer_finger": ['left_inner_finger_pad',
+      'left_inner_knuckle', 'left_inner_finger', 'left_outer_knuckle',
+      'right_outer_finger', 'right_inner_finger_pad',
+      'right_inner_knuckle', 'right_inner_finger', 'right_outer_knuckle'],
+
+      "left_inner_finger_pad": [
+      'left_inner_knuckle', 'left_inner_finger', 'left_outer_knuckle',
+      'right_outer_finger', 'right_inner_finger_pad',
+      'right_inner_knuckle', 'right_inner_finger', 'right_outer_knuckle'],
+
+      "left_inner_knuckle": ['left_inner_finger', 'left_outer_knuckle',
+      'right_outer_finger', 'right_inner_finger_pad',
+      'right_inner_knuckle', 'right_inner_finger', 'right_outer_knuckle'],
+
+      "left_inner_finger": ['left_outer_knuckle',
+      'right_outer_finger', 'right_inner_finger_pad',
+      'right_inner_knuckle', 'right_inner_finger', 'right_outer_knuckle'],
+
+      "left_outer_knuckle": [
+      'right_outer_finger', 'right_inner_finger_pad',
+      'right_inner_knuckle', 'right_inner_finger', 'right_outer_knuckle'],
+
+      "right_outer_finger": ['right_inner_finger_pad',
+      'right_inner_knuckle', 'right_inner_finger', 'right_outer_knuckle'],
+
+      "right_inner_finger_pad": [
+      'right_inner_knuckle', 'right_inner_finger', 'right_outer_knuckle'],
+
+      "right_inner_knuckle": [ 'right_inner_finger', 'right_outer_knuckle'],
+
+      "right_inner_finger": [ 'right_outer_knuckle'],
+
+      }
+    self_collision_buffer: {
+      'shoulder_link': 0.01,
+      'upper_arm_link': 0,
+      'forearm_link': 0,
+      'wrist_1_link': 0,
+      'wrist_2_link': 0,
+      'wrist_3_link' : 0,
+      'tool0': 0.02,
+      }
+
+    use_global_cumul: True
+    mesh_link_names:  ['shoulder_link','upper_arm_link', 'forearm_link', 'wrist_1_link',
+    'wrist_2_link' ,'wrist_3_link', 'robotiq_arg2f_base_link',
+    'left_outer_knuckle',
+    'left_inner_knuckle',
+    'left_outer_finger',
+    'left_inner_finger',
+    'right_outer_knuckle',
+    'right_inner_knuckle',
+    'right_outer_finger' ,
+    'right_inner_finger',
+    ] # List[str]
+
+    cspace:
+      joint_names: ['shoulder_pan_joint', 'shoulder_lift_joint', 'elbow_joint', 'wrist_1_joint',
+                    'wrist_2_joint', 'wrist_3_joint',
+                    'finger_joint']
+      retract_config:  [0.0, -2.2, 1.0, -1.383, -1.57, 0.00, 0.6]
+      null_space_weight:  [1.0, 1.0, 1.0, 1.0, 1.0, 1.0,1.0]
+      cspace_distance_weight: [1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0]
+      max_jerk: 500.0
+      max_acceleration: 12.0
+      position_limit_clip: 0.0
